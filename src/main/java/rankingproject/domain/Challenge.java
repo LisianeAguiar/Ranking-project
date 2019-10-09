@@ -4,14 +4,14 @@ public class Challenge {
 
     private String id;
     private Status status;
-    private Player challenger;
-    private Player challenged;
+    private String challengerId;
+    private String challengedId;
 
-    public Challenge(String id, Status status, Player challenger, Player challenged) {
+    public Challenge(String id, Status status, String challengerId, String challengedId) {
         this.id = id;
         this.status = status;
-        this.challenger = challenger;
-        this.challenged = challenged;
+        this.challengerId = challengerId;
+        this.challengedId = challengedId;
     }
 
     public String getId() {
@@ -30,19 +30,19 @@ public class Challenge {
         this.status = status;
     }
 
-    public Player getChallenger() {
-        return challenger;
+    public String getChallenger() {
+        return challengerId;
     }
 
-    public void setChallenger(Player challenger) {
-        this.challenger = challenger;
+    public void setChallenger(String challenger) {
+        this.challengerId = challenger;
     }
 
-    public Player getChallenged() {
-        return challenged;
+    public String getChallenged() {
+        return challengedId;
     }
 
-    public void setChallenged(Player challenged) {
-        this.challenged = challenged;
+    public void setChallenged(String challenged) {
+        this.challengedId = challenged;
     }
 }

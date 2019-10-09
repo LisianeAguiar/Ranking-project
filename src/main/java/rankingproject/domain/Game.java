@@ -3,22 +3,21 @@ package rankingproject.domain;
 public class Game {
 
     private String id;
-    private int score;
-    private Player challenger;
-    private Player challenged;
+    private String challenger;
+    private String challenged;
     private int challengerScore;
     private int challengedScore;
-    private Player result;
+    private String winnerId;
 
-    public Game(String id, int score, Player challenger, Player challenged,
-                int challengerScore, int challengedScore, Player result) {
+    public Game(String id, String challenger, String challenged,
+                int challengerScore, int challengedScore) {
         this.id = id;
-        this.score = score;
         this.challenger = challenger;
         this.challenged = challenged;
         this.challengerScore = challengerScore;
         this.challengedScore = challengedScore;
     }
+
 
     public String getId() {
         return id;
@@ -28,27 +27,19 @@ public class Game {
         this.id = id;
     }
 
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public Player getChallenger() {
+    public String getChallenger() {
         return challenger;
     }
 
-    public void setChallenger(Player challenger) {
+    public void setChallenger(String challenger) {
         this.challenger = challenger;
     }
 
-    public Player getChallenged() {
+    public String getChallenged() {
         return challenged;
     }
 
-    public void setChallenged(Player challenged) {
+    public void setChallenged(String challenged) {
         this.challenged = challenged;
     }
 
@@ -68,11 +59,11 @@ public class Game {
         this.challengedScore = challengedScore;
     }
 
-    public Player getResult() {
-        return result;
+    public String getResult() {
+        return winnerId;
     }
 
-    public void setResult(Player result) {
-        this.result = result;
+    public void setResult(String id) {
+        this.winnerId = id;
     }
 }

@@ -5,23 +5,15 @@ import java.util.List;
 
 public class Ranking {
 
-    private List<Player> ranking;
+    private List<String> ranking;
 
     public Ranking() {
         this.ranking = new ArrayList<>();
     }
 
-    public List<Player> getRanking() {
+    public List<String> getRanking() {
         return ranking;
     }
 
-    public Player findPlayerById(String id) {
-
-        return getRanking()
-                .stream()
-                .filter(player -> player.getId().equals(id))
-                .findAny()
-                .orElse(null);
-    }
 
 }
