@@ -10,6 +10,6 @@ public class RankingService {
     private Ranking ranking = new Ranking();
 
     public void createPlayer(Player player) {
-        ranking.getRanking().add(player);
+        ranking.getRanking();
     }
 }
