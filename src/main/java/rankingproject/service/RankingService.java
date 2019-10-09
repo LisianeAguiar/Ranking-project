@@ -14,19 +14,37 @@ public class RankingService {
 
     public void createPlayer(Player player) {
 
-        ranking.getRanking().add(player);
+        int lastPosition = ranking.getRanking().size();
+        player.setPosition(lastPosition);
+
 
     }
 
-
     public void changePositions(String winnerId, String loserId) {
 
-        List<Player> rankingList = ranking.getRanking();
-        Player winner =ranking.findPlayerById(winnerId);
-        Player loser =ranking.findPlayerById(loserId);
-        int newPosition = loser.getPosition();
-        rankingList.remove(winner);
-        winner.setPosition(newPosition);
-        rankingList.add(newPosition, winner);
+        Player winner =repository.findPlayerById(winnerId);
+        Player loser =repository.findPlayerById(loserId);
+
+        List<Player> players = repository.getPlayers();
+        int loserOldPos = loser.getPosition();  // 1
+
+        winner.setPosition(loserOldPos);
+        loser.setPosition(loserOldPos + 1);
+        int lastPosition = loserOldPos + 1;
+
+        int i = 0;
+        Player player;
+
+        while (i < players.size()) {
+
+            player = players.get(i);
+
+            if (player.getPosition() >= loser.getPosition() && player != loser && player != winner) {
+                player.setPosition(lastPosition++);
+            }
+
+        }
+
+
     }
 }
