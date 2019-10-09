@@ -15,5 +15,13 @@ public class Ranking {
         return ranking;
     }
 
+    public Player findPlayerById(String id) {
+
+        return getRanking()
+                .stream()
+                .filter(player -> player.getId().equals(id))
+                .findAny()
+                .orElse(null);
+    }
 
 }

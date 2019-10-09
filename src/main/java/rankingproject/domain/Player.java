@@ -6,9 +6,10 @@ public class Player {
     private String id;
     private int position;
 
-    public Player(String name, String id) {
+    public Player(String name, String id, int position) {
         this.name = name;
         this.id = id;
+        this.position = position;
 
     }
 
