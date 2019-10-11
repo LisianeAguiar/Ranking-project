@@ -9,9 +9,11 @@ public class Game {
     private int challengedScore;
     private String winnerId;
 
-    public Game(String id, String challenger, String challenged,
+    public Game(String challenger, String challenged,
                 int challengerScore, int challengedScore) {
-        this.id = id;
+
+       // this.id = Double.toString(Math.random());
+        this.id = "666";
         this.challenger = challenger;
         this.challenged = challenged;
         this.challengerScore = challengerScore;
