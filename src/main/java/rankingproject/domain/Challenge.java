@@ -8,6 +8,7 @@ public class Challenge {
     private String challengedId;
 
     public Challenge(String id, Status status, String challengerId, String challengedId) {
+       // this.id = Double.toString(Math.random());
         this.id = id;
         this.status = status;
         this.challengerId = challengerId;

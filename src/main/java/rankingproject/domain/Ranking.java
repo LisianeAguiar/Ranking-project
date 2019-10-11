@@ -1,17 +1,23 @@
 package rankingproject.domain;
 
+import org.springframework.stereotype.Component;
+import rankingproject.repository.PlayerRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class Ranking {
 
-    private List<String> ranking;
+    private List<Player> ranking;
 
-    public Ranking() {
-        this.ranking = new ArrayList<>();
+    public Ranking(PlayerRepository repository) {
+        this.ranking = repository.getPlayers();
     }
 
-    public List<String> getRanking() {
+    public List<Player> getRanking() { // retornar ranking ordenado, de acordo com a posicao
+
+
         return ranking;
     }
 
