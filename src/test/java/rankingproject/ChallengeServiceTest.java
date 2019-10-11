@@ -1,22 +1,77 @@
 package rankingproject;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import rankingproject.domain.Challenge;
+import rankingproject.domain.Ranking;
 import rankingproject.domain.Status;
+import rankingproject.repository.ChallengeRepository;
+import rankingproject.repository.PlayerRepository;
 import rankingproject.service.ChallengeService;
+import rankingproject.service.GameService;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
+//@RunWith(MockitoJUnitRunner.class)
 public class ChallengeServiceTest {
 
-    private ChallengeService service = new ChallengeService();
-    @Test
-    public void shouldFail_playerIdDifferentFromChallangedId () {
+    @InjectMocks
+    private ChallengeService service = mock(ChallengeService.class);
 
-        Challenge underTest =  new Challenge("222", Status.WAITING, "123", "345");
-        service.accept("222", "444");
-        assertThat(underTest.getStatus(), is(Status.ACCEPTED));
+    private ChallengeRepository repository = mock(ChallengeRepository.class);
+
+    private PlayerRepository playerRepository = mock(PlayerRepository.class);
+
+    private Ranking ranking = mock(Ranking.class);
+
+    private GameService gameService = mock(GameService.class);
+
+
+    @Test
+    public void accept_shouldFail_playerIdDifferentFromChallangedId() {
+
+        ChallengeService service = new ChallengeService(repository, playerRepository, gameService, ranking);
+
+        Challenge challenge = new Challenge("555", Status.WAITING, "123", "345");
+
+        when(repository.findChallenge(anyString())).thenReturn(challenge);
+
+        service.accept(challenge.getId(), "444");
+        assertThat(challenge.getStatus(), is(Status.ACCEPTED));
+    }
+
+    @Test
+    public void reject_shouldFail_playerIdDifferentFromChallangedId() {
+
+        ChallengeService service = new ChallengeService(repository, playerRepository, gameService, ranking);
+
+        Challenge challenge = new Challenge("555", Status.WAITING, "123", "345");
+
+        when(repository.findChallenge(anyString())).thenReturn(challenge);
+
+        service.accept(challenge.getId(), "444");
+        assertThat(challenge.getStatus(), is(Status.REJECTED));
+    }
+
+    @Test
+    public void accept_shouldPass_playerIdEqualsChallangedId() {
+
+        ChallengeService service = new ChallengeService(repository, playerRepository, gameService, ranking);
+
+        Challenge challenge = new Challenge("555", Status.WAITING, "123", "345");
+
+        when(repository.findChallenge("555")).thenReturn(challenge);
+
+        service.accept(challenge.getId(), "345");
+        assertThat(challenge.getStatus(), is(Status.ACCEPTED));
     }
 
 
