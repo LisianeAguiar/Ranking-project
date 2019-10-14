@@ -12,13 +12,11 @@ import java.util.List;
 public class GameService {
 
     private GameRepository games;
-    private PlayerRepository players;
     private PlayerService rankingService;
 
-    public GameService(GameRepository games, PlayerRepository players, PlayerService playerService) {
+    public GameService(GameRepository games, PlayerService playerService) {
 
         this.games = games;
-        this.players = players;
         this.rankingService = playerService;
     }
     public Game getGame(String id) {
