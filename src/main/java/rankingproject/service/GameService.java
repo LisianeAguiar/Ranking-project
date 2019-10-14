@@ -12,12 +12,12 @@ import java.util.List;
 public class GameService {
 
     private GameRepository games;
-    private PlayerService rankingService;
+    private PlayerService playerService;
 
     public GameService(GameRepository games, PlayerService playerService) {
 
         this.games = games;
-        this.rankingService = playerService;
+        this.playerService = playerService;
     }
     public Game getGame(String id) {
        return games.findGame(id);
@@ -46,9 +46,8 @@ public class GameService {
             if (game.getChallenger().equals(playerId)) {
                 if (game.getChallengerScore() >= 10) {
                     game.setResult(playerId);
-                    //ganhou, atualiza o ranking
                     loserId = game.getChallenged();
-                    rankingService.changePositions(playerId, loserId);
+                    playerService.changePositions(playerId, loserId);
 
                 }
                 else {
@@ -75,9 +74,6 @@ public class GameService {
 
                 if (game.getChallengedScore() >= 10) {
                     game.setResult(playerId);
-                    //ganhou, atualiza o ranking
-                    //loserId = game.getChallenger();
-                    //rankingService.changePositions(playerId, loserId);
 
                 }
                 else {
