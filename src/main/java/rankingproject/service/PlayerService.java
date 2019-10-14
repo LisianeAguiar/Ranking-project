@@ -7,6 +7,7 @@ import rankingproject.domain.Player;
 import rankingproject.domain.Ranking;
 import rankingproject.repository.PlayerRepository;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +26,7 @@ public class PlayerService {
     public void createPlayer(Player player) {
 
         List<Player> list = repository.getPlayers();
-        bubbleSort(list);
+        list.sort(Comparator.comparing(Player::getPosition));
         int lastPosition = list.get( list.size() -1 ).getPosition();
         player.setPosition(lastPosition + 1);
         repository.getPlayers().add(player);
