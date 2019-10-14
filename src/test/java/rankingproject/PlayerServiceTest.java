@@ -25,23 +25,16 @@ import static org.mockito.Mockito.when;
 
 public class PlayerServiceTest {
 
-    @InjectMocks
-    //private ChallengeService service = mock(ChallengeService.class);
-
-    private ChallengeRepository repository = mock(ChallengeRepository.class);
-
     private PlayerRepository playerRepository = mock(PlayerRepository.class);
 
     private Ranking ranking = mock(Ranking.class);
 
-    private GameService gameService = mock(GameService.class);
+    private PlayerService playerService = new PlayerService(playerRepository);
 
-    private PlayerService playerService = mock(PlayerService.class);
 
     @Test
     public void shouldPass_newPlayerPositionEqualsLastPosition() {
 
-        PlayerService service = new PlayerService(playerRepository);
         Player player = new Player("Lezi", "999", 8);
 
          List<Player> players =  new ArrayList<>();
@@ -55,8 +48,8 @@ public class PlayerServiceTest {
 
         when(playerRepository.getPlayers()).thenReturn(players);
 
-        service.createPlayer(player);
-        List<Player> ranking = service.showRanking();
+        playerService.createPlayer(player);
+        List<Player> ranking = playerService.showRanking();
         Player newPlayer = ranking.get(ranking.size()-1);
 
         assertThat(player.getPosition(), is(ranking.size()));
