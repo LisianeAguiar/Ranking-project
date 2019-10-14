@@ -16,8 +16,6 @@ public class GameRepository {
     public GameRepository() {
 
         games.add(new Game("123", "789", 0, 0));
-
-
     }
 
     public List<Game> getGames() {
