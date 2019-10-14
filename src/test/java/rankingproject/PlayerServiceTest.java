@@ -5,21 +5,13 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import rankingproject.domain.Player;
 import rankingproject.domain.Ranking;
-import rankingproject.repository.ChallengeRepository;
 import rankingproject.repository.PlayerRepository;
-import rankingproject.service.ChallengeService;
-import rankingproject.service.GameService;
 import rankingproject.service.PlayerService;
-
 
 import java.util.ArrayList;
 import java.util.List;
-
-
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

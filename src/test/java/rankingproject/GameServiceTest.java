@@ -65,8 +65,8 @@ public class GameServiceTest {
     @Test
     public void shouldPass_challengedScoreUpdates() {
 
-        Player challenger = new Player("Lis", "666", 2);
-        Player challenged = new Player("Gui", "999", 1);
+        Player challenger = new Player("Lis", "666", 3);
+        Player challenged = new Player("Gui", "999", 6);
 
         Game game = new Game("666","999", 0, 0);
 
@@ -82,8 +82,8 @@ public class GameServiceTest {
     @Test
     public void shouldFail_challengedScoreDoesntUpdate() {
 
-        Player challenger = new Player("Lis", "666", 2);
-        Player challenged = new Player("Gui", "999", 1);
+        Player challenger = new Player("Lis", "666", 3);
+        Player challenged = new Player("Gui", "999", 6);
 
         Game game = new Game("666","999", 0, 0);
 
