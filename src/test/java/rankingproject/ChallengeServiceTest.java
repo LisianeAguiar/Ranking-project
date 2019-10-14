@@ -74,5 +74,23 @@ public class ChallengeServiceTest {
         assertThat(challenge.getStatus(), is(Status.ACCEPTED));
     }
 
+    @Test
+    public void challengeCanChallenge_shouldPass_ChallengerPositionGreaterThanChallenged() {
 
+        Player challenger = new Player("Lis", "666", 3);
+        Player challenged = new Player("Gui", "999", 1);
+
+        boolean result = challengeService.challengerCanChallenge(challenger,challenged);
+        assertTrue(result);
+    }
+
+    @Test
+    public void challengeCanChallenge_shouldFail_ChallengerPositionLessThanChallenged() {
+
+        Player challenger = new Player("Lis", "666", 3);
+        Player challenged = new Player("Gui", "999", 7);
+
+        boolean result = challengeService.challengerCanChallenge(challenger,challenged);
+        assertTrue(result);
+    }
 }
