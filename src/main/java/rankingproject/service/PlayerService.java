@@ -13,19 +13,20 @@ import java.util.Optional;
 import static java.util.Arrays.asList;
 
 @Service
-public class RankingService {
+public class PlayerService {
 
     @Autowired
     private PlayerRepository repository;
     @Autowired
     private Ranking ranking;
 
-    public RankingService() {
+    public PlayerService(PlayerRepository repository) {
+        this.repository = repository;
     }
 
     public void createPlayer(Player player) {
 
-        List<Player> list = ranking.getRanking();
+        List<Player> list = repository.getPlayers();
         bubbleSort(list);
         int lastPosition = list.get( list.size() -1 ).getPosition();
         player.setPosition(lastPosition + 1);
@@ -79,7 +80,7 @@ public class RankingService {
 
     public List<Player> showRanking() {
 
-        bubbleSort(ranking.getRanking());
-        return ranking.getRanking();
+        bubbleSort(repository.getPlayers());
+        return repository.getPlayers();
     }
 }
