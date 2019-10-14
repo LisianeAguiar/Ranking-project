@@ -17,12 +17,12 @@ import static org.springframework.http.ResponseEntity.ok;
 @Service
 @RestController
 @RequestMapping("api/v1/Ranking")
-public class RankingController {
+public class PlayerController {
 
     private PlayerService service;
 
     @Autowired
-    public RankingController(PlayerService service) {
+    public PlayerController(PlayerService service) {
 
         this.service = service;
     }

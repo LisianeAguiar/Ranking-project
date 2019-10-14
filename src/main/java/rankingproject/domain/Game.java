@@ -12,8 +12,7 @@ public class Game {
     public Game(String challenger, String challenged,
                 int challengerScore, int challengedScore) {
 
-       // this.id = Double.toString(Math.random());
-        this.id = "666";
+        this.id = Double.toString(Math.random());
         this.challenger = challenger;
         this.challenged = challenged;
         this.challengerScore = challengerScore;
