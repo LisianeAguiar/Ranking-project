@@ -25,7 +25,7 @@ public class GameServiceTest {
     private GameRepository gameRepository = mock(GameRepository.class);
 
     private PlayerService playerService = mock(PlayerService.class);
-    
+
     private GameService gameService = new GameService(gameRepository,playerService );
 
     @Test
