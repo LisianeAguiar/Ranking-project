@@ -24,7 +24,6 @@ import static org.mockito.Mockito.when;
 public class ChallengeServiceTest {
 
     @InjectMocks
-    private ChallengeService service = mock(ChallengeService.class);
 
     private ChallengeRepository repository = mock(ChallengeRepository.class);
 
@@ -34,11 +33,14 @@ public class ChallengeServiceTest {
 
     private GameService gameService = mock(GameService.class);
 
+    private ChallengeService service = new ChallengeService(repository, playerRepository, gameService, ranking);
+
+
 
     @Test
     public void accept_shouldFail_playerIdDifferentFromChallangedId() {
 
-        ChallengeService service = new ChallengeService(repository, playerRepository, gameService, ranking);
+       // ChallengeService service = new ChallengeService(repository, playerRepository, gameService, ranking);
 
         Challenge challenge = new Challenge("555", Status.WAITING, "123", "345");
 
@@ -51,8 +53,6 @@ public class ChallengeServiceTest {
     @Test
     public void reject_shouldFail_playerIdDifferentFromChallangedId() {
 
-        ChallengeService service = new ChallengeService(repository, playerRepository, gameService, ranking);
-
         Challenge challenge = new Challenge("555", Status.WAITING, "123", "345");
 
         when(repository.findChallenge(anyString())).thenReturn(challenge);
@@ -64,11 +64,20 @@ public class ChallengeServiceTest {
     @Test
     public void accept_shouldPass_playerIdEqualsChallangedId() {
 
-        ChallengeService service = new ChallengeService(repository, playerRepository, gameService, ranking);
-
         Challenge challenge = new Challenge("555", Status.WAITING, "123", "345");
 
         when(repository.findChallenge("555")).thenReturn(challenge);
+
+        service.accept(challenge.getId(), "345");
+        assertThat(challenge.getStatus(), is(Status.ACCEPTED));
+    }
+
+    @Test
+    public void reject_shouldPass_playerIdEqualsFromChallangedId() {
+
+        Challenge challenge = new Challenge("555", Status.WAITING, "123", "345");
+
+        when(repository.findChallenge(anyString())).thenReturn(challenge);
 
         service.accept(challenge.getId(), "345");
         assertThat(challenge.getStatus(), is(Status.ACCEPTED));
