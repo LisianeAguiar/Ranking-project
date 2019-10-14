@@ -29,20 +29,23 @@ public class ChallengeServiceTest {
 
     private PlayerRepository playerRepository = mock(PlayerRepository.class);
 
-    private Ranking ranking = mock(Ranking.class);
-
     private GameService gameService = mock(GameService.class);
 
-    private ChallengeService service = new ChallengeService(repository, playerRepository, gameService, ranking);
+    private ChallengeService service = new ChallengeService(repository, playerRepository, gameService);
 
+    private Challenge challenge;
 
+    public ChallengeServiceTest() {
 
+        challenge = new Challenge("555", Status.WAITING, "123", "345");
+
+    }
     @Test
     public void accept_shouldFail_playerIdDifferentFromChallangedId() {
 
        // ChallengeService service = new ChallengeService(repository, playerRepository, gameService, ranking);
 
-        Challenge challenge = new Challenge("555", Status.WAITING, "123", "345");
+        //Challenge challenge = new Challenge("555", Status.WAITING, "123", "345");
 
         when(repository.findChallenge(anyString())).thenReturn(challenge);
 
@@ -53,7 +56,7 @@ public class ChallengeServiceTest {
     @Test
     public void reject_shouldFail_playerIdDifferentFromChallangedId() {
 
-        Challenge challenge = new Challenge("555", Status.WAITING, "123", "345");
+       // Challenge challenge = new Challenge("555", Status.WAITING, "123", "345");
 
         when(repository.findChallenge(anyString())).thenReturn(challenge);
 
@@ -64,7 +67,7 @@ public class ChallengeServiceTest {
     @Test
     public void accept_shouldPass_playerIdEqualsChallangedId() {
 
-        Challenge challenge = new Challenge("555", Status.WAITING, "123", "345");
+      //  Challenge challenge = new Challenge("555", Status.WAITING, "123", "345");
 
         when(repository.findChallenge("555")).thenReturn(challenge);
 
@@ -75,7 +78,7 @@ public class ChallengeServiceTest {
     @Test
     public void reject_shouldPass_playerIdEqualsFromChallangedId() {
 
-        Challenge challenge = new Challenge("555", Status.WAITING, "123", "345");
+      //  Challenge challenge = new Challenge("555", Status.WAITING, "123", "345");
 
         when(repository.findChallenge(anyString())).thenReturn(challenge);
 
@@ -83,5 +86,11 @@ public class ChallengeServiceTest {
         assertThat(challenge.getStatus(), is(Status.ACCEPTED));
     }
 
+    //testar se a criacao de um desafio gera um game
+    @Test
+    public void shouldPass_challengeGeneratesGame() {
+
+       // Challenge challenge = new Challenge();
+    }
 
 }

@@ -6,7 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import rankingproject.domain.Player;
 import rankingproject.domain.Ranking;
-import rankingproject.service.RankingService;
+import rankingproject.service.PlayerService;
+
 
 import java.beans.BeanProperty;
 import java.util.List;
@@ -18,10 +19,10 @@ import static org.springframework.http.ResponseEntity.ok;
 @RequestMapping("api/v1/Ranking")
 public class RankingController {
 
-    private RankingService service;
+    private PlayerService service;
 
     @Autowired
-    public RankingController(RankingService service) {
+    public RankingController(PlayerService service) {
 
         this.service = service;
     }
