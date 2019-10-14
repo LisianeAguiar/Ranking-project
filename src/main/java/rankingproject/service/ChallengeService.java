@@ -32,20 +32,33 @@ public class ChallengeService {
         return challenges.getChallenges();
     }
 
+    public boolean challengerCanChallenge (Player challenger, Player challenged) {
+
+        if (challenger.getPosition() > challenged.getPosition()) {
+            if (challenger.getPosition() - challenged.getPosition() <= 3) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
     public Challenge createChallenge(String challengerId, String challengedId) {
 
         Player challenger = players.findPlayerById(challengerId);
         Player challenged = players.findPlayerById(challengedId);
         Challenge challenge = null;
 
-        if(challenger != null && challenged != null) {
-            if (challenger.getPosition() - challenged.getPosition() <= 3) {
 
-                String id = Double.toString(Math.random());
-                challenge = new Challenge(id, Status.WAITING, challengerId, challengedId);
-                challenges.save(challenge);
+        if(challenger != null && challenged != null) {
+
+            if (challengerCanChallenge(challenger, challenged)) {
+
+                    String id = Double.toString(Math.random());
+                    challenge = new Challenge(id, Status.WAITING, challengerId, challengedId);
+                    challenges.save(challenge);
+                }
             }
-        }
 
         return challenge;
     }
