@@ -31,20 +31,22 @@ public class PlayerServiceTest {
 
     private PlayerService playerService = new PlayerService(playerRepository);
 
+    private List<Player> players = new ArrayList<>();
+
+    public PlayerServiceTest() {
+        players.add(new Player("Lisiane", "123",3));
+        players.add(new Player("Carol", "345",5));
+        players.add(new Player("Rafael", "567",4));
+        players.add(new Player("Eduardo", "789",2));
+        players.add(new Player("Nilta", "555",6));
+        players.add(new Player("Neiva", "777",1));
+
+    }
 
     @Test
     public void shouldPass_newPlayerPositionEqualsLastPosition() {
 
         Player player = new Player("Lezi", "999", 8);
-
-         List<Player> players =  new ArrayList<>();
-
-         players.add(new Player("Lisiane", "123",3));
-         players.add(new Player("Carol", "345",5));
-         players.add(new Player("Rafael", "567",4));
-         players.add(new Player("Eduardo", "789",2));
-         players.add(new Player("Nilta", "555",6));
-         players.add(new Player("Neiva", "777",1));
 
         when(playerRepository.getPlayers()).thenReturn(players);
 
@@ -55,4 +57,23 @@ public class PlayerServiceTest {
         assertThat(player.getPosition(), is(ranking.size()));
 
     }
+
+    @Test
+    public void shouldPass_changePositionWhenPlayerWins() {
+
+        Player winner = players.get(2); // Rafael
+        Player loser = players.get(3);
+
+        when(playerRepository.findPlayerById(winner.getId())).thenReturn(winner);
+        when(playerRepository.findPlayerById(loser.getId())).thenReturn(loser);
+        when(playerRepository.getPlayers()).thenReturn(players);
+
+        int newWinnerPosition = loser.getPosition();
+        int newLoserPosition = loser.getPosition()+1;
+
+        playerService.changePositions(winner.getId(), loser.getId());
+
+        assertThat(winner.getPosition(), is(newWinnerPosition));
+    }
+
 }
