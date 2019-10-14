@@ -28,13 +28,6 @@ public class GameController {
         return service.get();
     }
 
-    @PostMapping("/createGame")
-    public  void createGame(@RequestBody ChallengeRequest request) {
-
-        service.createGame(request.challenger, request.challenged);
-
-    }
-
     @PostMapping("/updateChallengerScore/{id}/{challengerId}")
     public void updateChallengerScore(@PathVariable String id, @PathVariable  String challengerId) {
 
