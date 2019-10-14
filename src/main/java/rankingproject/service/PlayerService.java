@@ -17,8 +17,6 @@ public class PlayerService {
 
     @Autowired
     private PlayerRepository repository;
-    @Autowired
-    private Ranking ranking;
 
     public PlayerService(PlayerRepository repository) {
         this.repository = repository;
