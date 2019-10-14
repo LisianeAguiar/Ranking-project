@@ -44,7 +44,7 @@ public class GameService {
         if (game.getResult() == null) {
 
             if (game.getChallenger().equals(playerId)) {
-                if (game.getChallengerScore() > 10) {
+                if (game.getChallengerScore() >= 10) {
                     game.setResult(playerId);
                     //ganhou, atualiza o ranking
                     loserId = game.getChallenged();
@@ -73,11 +73,11 @@ public class GameService {
 
             if (game.getChallenged().equals(playerId)) {
 
-                if (game.getChallengedScore() > 10) {
+                if (game.getChallengedScore() >= 10) {
                     game.setResult(playerId);
                     //ganhou, atualiza o ranking
-                    loserId = game.getChallenger();
-                    rankingService.changePositions(playerId, loserId);
+                    //loserId = game.getChallenger();
+                    //rankingService.changePositions(playerId, loserId);
 
                 }
                 else {
