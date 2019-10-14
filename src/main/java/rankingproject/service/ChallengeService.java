@@ -15,14 +15,12 @@ public class ChallengeService {
 
     private ChallengeRepository challenges;
     private PlayerRepository players;
-    private Ranking ranking;
     private GameService gameService;
 
     @Autowired
-    public ChallengeService(ChallengeRepository repository, PlayerRepository playerRepository, GameService gameService, Ranking ranking) {
+    public ChallengeService(ChallengeRepository repository, PlayerRepository playerRepository, GameService gameService) {
         this.challenges = repository;
         this.players = playerRepository;
-        this.ranking = ranking;
         this.gameService = gameService;
     }
 
