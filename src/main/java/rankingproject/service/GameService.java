@@ -11,10 +11,16 @@ import java.util.List;
 @Service
 public class GameService {
 
-    private GameRepository games = new GameRepository();
-    private PlayerRepository players = new PlayerRepository();
-    private RankingService rankingService = new RankingService();
+    private GameRepository games;
+    private PlayerRepository players;
+    private PlayerService rankingService;
 
+    public GameService(GameRepository games, PlayerRepository players, PlayerService playerService) {
+
+        this.games = games;
+        this.players = players;
+        this.rankingService = playerService;
+    }
     public Game getGame(String id) {
        return games.findGame(id);
     }
