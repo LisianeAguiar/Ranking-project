@@ -53,7 +53,7 @@ public class ChallengeServiceTest {
 
         when(challengeRepository.findChallenge(anyString())).thenReturn(challenge);
 
-        challengeService.accept(challenge.getId(), "444");
+        challengeService.reject(challenge.getId(), "444");
         assertThat(challenge.getStatus(), is(Status.REJECTED));
     }
 
@@ -71,8 +71,8 @@ public class ChallengeServiceTest {
 
         when(challengeRepository.findChallenge(anyString())).thenReturn(challenge);
 
-        challengeService.accept(challenge.getId(), "345");
-        assertThat(challenge.getStatus(), is(Status.ACCEPTED));
+        challengeService.reject(challenge.getId(), "345");
+        assertThat(challenge.getStatus(), is(Status.REJECTED));
     }
 
     @Test
