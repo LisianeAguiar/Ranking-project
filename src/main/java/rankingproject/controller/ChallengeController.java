@@ -24,7 +24,7 @@ public class ChallengeController {
         this.service = service;
     }
 
-    @GetMapping("/list")
+    @GetMapping("/showChallenges")
     public ResponseEntity<List<Challenge>> listChallenges() {
 
         List<Challenge> list = service.get();
@@ -51,14 +51,12 @@ public class ChallengeController {
         return badRequest().body("Não é possível desafiar a pessoa.");
     }
 
-    @PostMapping("/acceptChallenge")
-    public ResponseEntity acceptChallenge(@RequestBody AcceptRejectRequest request){
+    @PutMapping("/acceptChallenge/{id}/{challengedId}")
+    public ResponseEntity acceptChallenge(@PathVariable String id, @PathVariable String challengedId){
 
-        String challengedId = request.challenged;
+        service.accept(id, challengedId);
 
-        service.accept(request.id, request.challenged);
-
-        Challenge challenge = service.getChallenge(request.id);
+        Challenge challenge = service.getChallenge(id);
         if (challenge != null) {
             return ok(challenge);
         }
@@ -66,14 +64,12 @@ public class ChallengeController {
     }
 
 
-    @PostMapping("/rejectChallenge")
-    public ResponseEntity rejectChallenge(@RequestBody AcceptRejectRequest request){
+    @PutMapping("/rejectChallenge/{id}/{challengedId}")
+    public ResponseEntity rejectChallenge(@PathVariable String id, @PathVariable String challengedId){
 
-        String challengedId = request.challenged;
+        service.reject(id, challengedId);
 
-        service.reject(request.id, request.challenged);
-
-        Challenge challenge = service.getChallenge(request.id);
+        Challenge challenge = service.getChallenge(id);
         if (challenge != null) {
             return ok(challenge);
         }
