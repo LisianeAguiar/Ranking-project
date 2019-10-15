@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
+import rankingproject.domain.GenerateId;
 import rankingproject.domain.Player;
 import rankingproject.domain.Ranking;
 import rankingproject.repository.PlayerRepository;
@@ -20,9 +21,9 @@ public class PlayerServiceTest {
 
     private PlayerRepository playerRepository = mock(PlayerRepository.class);
 
-    private Ranking ranking = mock(Ranking.class);
+    private GenerateId generateId = mock(GenerateId.class);
 
-    private PlayerService playerService = new PlayerService(playerRepository);
+    private PlayerService playerService = new PlayerService(playerRepository,generateId);
 
     private List<Player> players = new ArrayList<>();
 
@@ -39,22 +40,36 @@ public class PlayerServiceTest {
     @Test
     public void shouldPass_newPlayerPositionEqualsLastPosition() {
 
-        Player player = new Player("Lezi", "999", 8);
+        when(playerRepository.getPlayers()).thenReturn(players);
+        Player player = new Player("Osman", "688", 0);
+
+        int currentRankingSize = players.size();
+        playerService.createPlayer(player);
+        int newRankingSize = currentRankingSize + 1;
+
+        assertThat(player.getPosition(), is(newRankingSize));
+
+    }
+
+    @Test
+    public void shouldFail_newPlayerPositionDifferentFromLastPosition() {
 
         when(playerRepository.getPlayers()).thenReturn(players);
-
+        Player player = new Player("Osman", "688", 0);
         playerService.createPlayer(player);
-        List<Player> ranking = playerService.showRanking();
-        Player newPlayer = ranking.get(ranking.size()-1);
 
-        assertThat(player.getPosition(), is(ranking.size()));
+        int currentRankingSize = players.size();
+        playerService.createPlayer(player);
+       // int newRankingSize = currentRankingSize + 1;
+
+        assertThat(player.getPosition(), is(currentRankingSize));
 
     }
 
     @Test
     public void shouldPass_changePositionWhenPlayerWins() {
 
-        Player winner = players.get(2); // Rafael
+        Player winner = players.get(2);
         Player loser = players.get(3);
 
         when(playerRepository.findPlayerById(winner.getId())).thenReturn(winner);
@@ -72,10 +87,10 @@ public class PlayerServiceTest {
     @Test
     public void shouldPass_newPlayerIsAddedToList() {
 
+        Player player = new Player("Osman", "688", 0);
         when(playerRepository.getPlayers()).thenReturn(players);
-        Player player = new Player("Lezi", "333", 0);
         playerService.createPlayer(player);
-        verify(playerRepository).save(player);
+        verify(playerRepository).save(any(Player.class));
 
     }
 
