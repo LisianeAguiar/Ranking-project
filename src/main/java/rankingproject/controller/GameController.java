@@ -10,6 +10,9 @@ import rankingproject.service.GameService;
 
 import java.util.List;
 
+import static org.springframework.http.ResponseEntity.badRequest;
+import static org.springframework.http.ResponseEntity.ok;
+
 @RestController
 @RequestMapping("api/v1/Game")
 
@@ -29,16 +32,32 @@ public class GameController {
     }
 
     @PostMapping("/updateChallengerScore/{id}/{challengerId}")
-    public void updateChallengerScore(@PathVariable String id, @PathVariable  String challengerId) {
+    public ResponseEntity updateChallengerScore(@PathVariable String id, @PathVariable  String challengerId) {
 
-        service.updateChallengerScore(id, challengerId);
+        try {
+            service.updateChallengerScore(id, challengerId);
+
+        } catch (NullPointerException exception) {
+            return badRequest().body("Jogo não existe");
+        }
+
+        Game game = service.getGame(id);
+        return ok(game);
+
 
     }
 
     @PostMapping("/updateChallengedScore/{id}/{challengedId}")
-    public void updateChallengedScore(@PathVariable String id, @PathVariable  String challengedId) {
+    public ResponseEntity updateChallengedScore(@PathVariable String id, @PathVariable  String challengedId) {
 
-        service.updateChallengedScore(id, challengedId);
+        try {
+            service.updateChallengedScore(id, challengedId);
 
+        } catch (NullPointerException exception) {
+            return badRequest().body("Jogo não existe");
+        }
+
+        Game game = service.getGame(id);
+        return ok(game);
     }
 }
