@@ -2,6 +2,7 @@ package rankingproject;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import rankingproject.domain.Player;
 import rankingproject.domain.Ranking;
@@ -12,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
 public class PlayerServiceTest {
 
@@ -66,6 +67,16 @@ public class PlayerServiceTest {
         playerService.changePositions(winner.getId(), loser.getId());
 
         assertThat(winner.getPosition(), is(newWinnerPosition));
+    }
+
+    @Test
+    public void shouldPass_newPlayerIsAddedToList() {
+
+        when(playerRepository.getPlayers()).thenReturn(players);
+        Player player = new Player("Lezi", "333", 0);
+        playerService.createPlayer(player);
+        verify(playerRepository).save(player);
+
     }
 
 }
