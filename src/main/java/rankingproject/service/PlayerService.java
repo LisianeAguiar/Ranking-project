@@ -29,10 +29,17 @@ public class PlayerService {
     public void createPlayer(Player player) {
 
         List<Player> list = repository.getPlayers();
-        list.sort(Comparator.comparing(Player::getPosition));
-        int lastPosition = list.get( list.size() -1 ).getPosition();
-        player.setPosition(lastPosition + 1);
-        repository.save(player);
+        if (list.size() == 0) {
+            player.setPosition(1);
+            repository.save(player);
+        }
+        else {
+            list.sort(Comparator.comparing(Player::getPosition));
+            int lastPosition = list.get( list.size() -1 ).getPosition();
+            player.setPosition(lastPosition + 1);
+            repository.save(player);
+        }
+
 
     }
 
