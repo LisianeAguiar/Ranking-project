@@ -25,6 +25,9 @@ public class PlayerRepository {
     }
 
 
+    public void save(Player player) {
+        players.add(player);
+    }
 
     public List<Player> getPlayers() {
         return players;
