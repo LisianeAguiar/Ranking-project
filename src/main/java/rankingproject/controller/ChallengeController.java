@@ -37,32 +37,47 @@ public class ChallengeController {
         String challengerId = request.challenger;
         String challengedId = request.challenged;
 
-        Challenge c = service.createChallenge(challengerId, challengedId);
-        if (c != null) {
-            return ok(c);
+        Challenge challenge;
+        try {
+            challenge = service.createChallenge(challengerId, challengedId);
+
+        } catch (IllegalArgumentException exception) {
+            return badRequest().body("ChallengerID ou ChallengedID inválidos");
         }
-        return badRequest().body("Posição do desafiador deve ser no máximo 3 abaixo do desafiado.");
+
+        if (challenge != null) {
+            return ok(challenge);
+        }
+        return badRequest().body("Não é possível desafiar a pessoa.");
     }
 
     @PostMapping("/acceptChallenge")
-    public Challenge acceptChallenge(@RequestBody AcceptRejectRequest request){
+    public ResponseEntity acceptChallenge(@RequestBody AcceptRejectRequest request){
 
         String challengedId = request.challenged;
 
         service.accept(request.id, request.challenged);
 
-        return service.getChallenge(request.id);
+        Challenge challenge = service.getChallenge(request.id);
+        if (challenge != null) {
+            return ok(challenge);
+        }
+        return badRequest().body("Desafio inexistente.");
     }
 
 
     @PostMapping("/rejectChallenge")
-    public Challenge rejectChallenge(@RequestBody AcceptRejectRequest request){
+    public ResponseEntity rejectChallenge(@RequestBody AcceptRejectRequest request){
 
         String challengedId = request.challenged;
 
         service.reject(request.id, request.challenged);
 
-        return service.getChallenge(request.id);
+        Challenge challenge = service.getChallenge(request.id);
+        if (challenge != null) {
+            return ok(challenge);
+        }
+        return badRequest().body("Desafio inexistente.");
     }
 }
 
