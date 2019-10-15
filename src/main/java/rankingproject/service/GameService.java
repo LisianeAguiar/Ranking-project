@@ -19,6 +19,7 @@ public class GameService {
         this.games = games;
         this.playerService = playerService;
     }
+
     public Game getGame(String id) {
        return games.findGame(id);
     }
@@ -38,6 +39,11 @@ public class GameService {
     public void updateChallengerScore(String gameId, String playerId) {
 
         Game game = games.findGame(gameId);
+
+        if (game == null) {
+            throw new NullPointerException();
+        }
+
         int score = 0;
         String loserId = "";
 
@@ -65,6 +71,11 @@ public class GameService {
     public void updateChallengedScore(String gameId, String playerId) {
 
         Game game = games.findGame(gameId);
+
+        if (game == null) {
+            throw new NullPointerException();
+        }
+
         int score = 0;
         String loserId = "";
 
