@@ -3,6 +3,7 @@ package rankingproject.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import rankingproject.domain.GenerateId;
 import rankingproject.domain.Player;
 import rankingproject.domain.Ranking;
 import rankingproject.repository.PlayerRepository;
@@ -18,9 +19,11 @@ public class PlayerService {
 
     @Autowired
     private PlayerRepository repository;
+    private GenerateId generateId;
 
-    public PlayerService(PlayerRepository repository) {
+    public PlayerService(PlayerRepository repository, GenerateId generateId) {
         this.repository = repository;
+        this.generateId = generateId;
     }
 
     public void createPlayer(Player player) {
