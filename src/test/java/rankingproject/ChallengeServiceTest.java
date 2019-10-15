@@ -11,12 +11,13 @@ import rankingproject.repository.PlayerRepository;
 import rankingproject.service.ChallengeService;
 import rankingproject.service.GameService;
 
+import java.util.List;
+
 import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 //@RunWith(MockitoJUnitRunner.class)
 public class ChallengeServiceTest {
@@ -36,7 +37,7 @@ public class ChallengeServiceTest {
     public ChallengeServiceTest() {
 
         challenge = new Challenge("555", Status.WAITING, "123", "345");
-
+        
     }
     @Test
     public void accept_shouldFail_playerIdDifferentFromChallangedId() {
@@ -79,7 +80,6 @@ public class ChallengeServiceTest {
 
         Player challenger = new Player("Lis", "666", 3);
         Player challenged = new Player("Gui", "999", 1);
-
         boolean result = challengeService.challengerCanChallenge(challenger,challenged);
         assertTrue(result);
     }
@@ -92,5 +92,43 @@ public class ChallengeServiceTest {
 
         boolean result = challengeService.challengerCanChallenge(challenger,challenged);
         assertTrue(result);
+    }
+
+    @Test
+    public void challengedIsCreated_shouldPass() {
+
+        Player challenger = new Player("Lis", "666", 3);
+        Player challenged = new Player("Gui", "999", 1);
+        when(playerRepository.findPlayerById(challenger.getId())).thenReturn(challenger);
+        when(playerRepository.findPlayerById(challenged.getId())).thenReturn(challenged);
+
+        challengeService.createChallenge(challenger.getId(), challenged.getId());
+        verify(challengeRepository).save(any(Challenge.class));
+    }
+
+    @Test
+    public void challengedIsCreated_shouldFail_challengerPositionLessThanChallengedPosition() {
+
+        Player challenger = new Player("Lis", "666", 2);
+        Player challenged = new Player("Gui", "999", 5);
+
+        when(playerRepository.findPlayerById(challenger.getId())).thenReturn(challenger);
+        when(playerRepository.findPlayerById(challenged.getId())).thenReturn(challenged);
+
+        challengeService.createChallenge(challenger.getId(), challenged.getId());
+        verify(challengeRepository).save(any(Challenge.class));
+    }
+
+    @Test
+    public void challengedIsCreated_shouldFail_challengerPositionGreaterThanThreeFromChallenged() {
+
+        Player challenger = new Player("Lis", "666", 1);
+        Player challenged = new Player("Gui", "999", 5);
+
+        when(playerRepository.findPlayerById(challenger.getId())).thenReturn(challenger);
+        when(playerRepository.findPlayerById(challenged.getId())).thenReturn(challenged);
+
+        challengeService.createChallenge(challenger.getId(), challenged.getId());
+        verify(challengeRepository).save(any(Challenge.class));
     }
 }
