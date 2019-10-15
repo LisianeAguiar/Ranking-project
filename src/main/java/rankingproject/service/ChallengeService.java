@@ -16,12 +16,14 @@ public class ChallengeService {
     private ChallengeRepository challenges;
     private PlayerRepository players;
     private GameService gameService;
+    private GenerateId generateId;
 
     @Autowired
-    public ChallengeService(ChallengeRepository repository, PlayerRepository playerRepository, GameService gameService) {
+    public ChallengeService(ChallengeRepository repository, PlayerRepository playerRepository, GameService gameService, GenerateId generateId) {
         this.challenges = repository;
         this.players = playerRepository;
         this.gameService = gameService;
+        this.generateId = generateId;
     }
 
     public Challenge getChallenge (String id) {
@@ -40,7 +42,6 @@ public class ChallengeService {
             }
         }
         return false;
-
     }
 
     public Challenge createChallenge(String challengerId, String challengedId) {
@@ -57,7 +58,7 @@ public class ChallengeService {
 
             if (challengerCanChallenge(challenger, challenged)) {
 
-                    String id = Double.toString(Math.random());
+                    String id = generateId.generateId();
                     challenge = new Challenge(id, Status.WAITING, challengerId, challengedId);
                     challenges.save(challenge);
                 }
