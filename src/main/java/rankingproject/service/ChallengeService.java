@@ -50,7 +50,10 @@ public class ChallengeService {
         Challenge challenge = null;
 
 
-        if(challenger != null && challenged != null) {
+        if(challenger == null || challenged == null) {
+            throw new IllegalArgumentException();
+        }
+        else {
 
             if (challengerCanChallenge(challenger, challenged)) {
 
@@ -67,18 +70,23 @@ public class ChallengeService {
 
         Challenge challenge = challenges.findChallenge(id);
 
-        if(challenge.getChallenged().equals(challengedId)) {
+        if (challenge != null) {
+            if(challenge.getChallenged().equals(challengedId)) {
 
-            challenge.setStatus(Status.ACCEPTED);
-            gameService.createGame(challenge.getChallenger(), challengedId);
+                challenge.setStatus(Status.ACCEPTED);
+                gameService.createGame(challenge.getChallenger(), challengedId);
+            }
         }
+
     }
 
     public void reject(String id, String challengedId) {
 
         challenges.getChallenges();
         Challenge challenge = challenges.findChallenge(id);
-        challenge.setStatus(Status.REJECTED);
 
+        if(challenge != null) {
+            challenge.setStatus(Status.REJECTED);
+        }
     }
 }
