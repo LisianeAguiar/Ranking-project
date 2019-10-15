@@ -31,7 +31,7 @@ public class GameController {
         return service.get();
     }
 
-    @PostMapping("/updateChallengerScore/{id}/{challengerId}")
+    @PutMapping("/updateChallengerScore/{id}/{challengerId}")
     public ResponseEntity updateChallengerScore(@PathVariable String id, @PathVariable  String challengerId) {
 
         try {
@@ -44,10 +44,9 @@ public class GameController {
         Game game = service.getGame(id);
         return ok(game);
 
-
     }
 
-    @PostMapping("/updateChallengedScore/{id}/{challengedId}")
+    @PutMapping("/updateChallengedScore/{id}/{challengedId}")
     public ResponseEntity updateChallengedScore(@PathVariable String id, @PathVariable  String challengedId) {
 
         try {
