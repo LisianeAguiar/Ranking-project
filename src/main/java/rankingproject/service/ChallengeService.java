@@ -85,8 +85,10 @@ public class ChallengeService {
         challenges.getChallenges();
         Challenge challenge = challenges.findChallenge(id);
 
-        if(challenge != null) {
-            challenge.setStatus(Status.REJECTED);
+        if (challenge != null) {
+            if (challenge.getChallenged().equals(challengedId)) {
+                challenge.setStatus(Status.REJECTED);
+            }
         }
     }
 }
