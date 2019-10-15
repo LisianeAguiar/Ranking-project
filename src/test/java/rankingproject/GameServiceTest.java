@@ -98,4 +98,29 @@ public class GameServiceTest {
         assertThat(game.getChallengedScore(), is(scoreBeforeUpdate));
 
     }
+
+    @Test (expected = NullPointerException.class)
+    public void updateChallengerScore_shouldPass_throwsExceptionWhenPlayIdNull() {
+
+        String gameId = "33Tr";
+        String playerId = "345";
+        gameService.updateChallengerScore(gameId, "345");
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void updateChallengedScore_shouldPass_throwsExceptionWhenPlayIdNull() {
+
+        String gameId = "33Tr";
+        String playerId = "345";
+        gameService.updateChallengedScore(gameId, "345");
+    }
+
+    @Test
+    public void updateChallengerScore_shouldFail_DoesntThrowsExceptionWhenPlayIdNull() {
+
+        String gameId = "33Tr";
+        String playerId = "345";
+        gameService.updateChallengerScore(gameId, "345");
+    }
+
 }
