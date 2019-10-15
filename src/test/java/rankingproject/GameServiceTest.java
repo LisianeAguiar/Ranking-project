@@ -3,6 +3,7 @@ package rankingproject;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import rankingproject.domain.Game;
+import rankingproject.domain.GenerateId;
 import rankingproject.domain.Player;
 import rankingproject.domain.Ranking;
 import rankingproject.repository.ChallengeRepository;
@@ -26,7 +27,9 @@ public class GameServiceTest {
 
     private PlayerService playerService = mock(PlayerService.class);
 
-    private GameService gameService = new GameService(gameRepository,playerService );
+    private GenerateId generateId = mock(GenerateId.class);
+
+    private GameService gameService = new GameService(gameRepository,playerService , generateId);
 
     @Test
     public void shouldPass_challengerScoreUpdates() {
@@ -34,7 +37,7 @@ public class GameServiceTest {
         Player challenger = new Player("Lis", "666", 2);
         Player challenged = new Player("Gui", "999", 1);
 
-        Game game = new Game("666","999", 0, 0);
+        Game game = new Game("2233", "666","999", 0, 0);
 
         when(gameRepository.findGame(anyString())).thenReturn(game);
 
@@ -51,7 +54,7 @@ public class GameServiceTest {
         Player challenger = new Player("Lis", "666", 2);
         Player challenged = new Player("Gui", "999", 1);
 
-        Game game = new Game("666","999", 0, 0);
+        Game game = new Game("56777", "666","999", 0, 0);
 
         when(gameRepository.findGame(anyString())).thenReturn(game);
 
@@ -68,7 +71,7 @@ public class GameServiceTest {
         Player challenger = new Player("Lis", "666", 3);
         Player challenged = new Player("Gui", "999", 6);
 
-        Game game = new Game("666","999", 0, 0);
+        Game game = new Game("567774", "666","999", 0, 0);
 
         when(gameRepository.findGame(anyString())).thenReturn(game);
 
@@ -85,7 +88,7 @@ public class GameServiceTest {
         Player challenger = new Player("Lis", "666", 3);
         Player challenged = new Player("Gui", "999", 6);
 
-        Game game = new Game("666","999", 0, 0);
+        Game game = new Game("9997", "666","999", 0, 0);
 
         when(gameRepository.findGame(anyString())).thenReturn(game);
 
