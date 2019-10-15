@@ -37,7 +37,7 @@ public class ChallengeServiceTest {
     public ChallengeServiceTest() {
 
         challenge = new Challenge("555", Status.WAITING, "123", "345");
-        
+
     }
     @Test
     public void accept_shouldFail_playerIdDifferentFromChallangedId() {
@@ -130,5 +130,14 @@ public class ChallengeServiceTest {
 
         challengeService.createChallenge(challenger.getId(), challenged.getId());
         verify(challengeRepository).save(any(Challenge.class));
+    }
+
+    @Test
+    public void acceptChallenge_shouldPass_verifyIfGameIsCreated() {
+
+        when(challengeService.getChallenge(anyString())).thenReturn(challenge);
+        challengeService.accept(challenge.getId(), challenge.getChallenged());
+        verify(gameService).createGame(anyString(),anyString());
+
     }
 }
