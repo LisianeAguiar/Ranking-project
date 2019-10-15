@@ -2,9 +2,8 @@ package rankingproject.service;
 
 import org.springframework.stereotype.Service;
 import rankingproject.domain.Game;
-import rankingproject.domain.Player;
+import rankingproject.domain.GenerateId;
 import rankingproject.repository.GameRepository;
-import rankingproject.repository.PlayerRepository;
 
 import java.util.List;
 
@@ -13,15 +12,18 @@ public class GameService {
 
     private GameRepository games;
     private PlayerService playerService;
+    private GenerateId generateId;
 
-    public GameService(GameRepository games, PlayerService playerService) {
+    public GameService(GameRepository games, PlayerService playerService, GenerateId generateId) {
 
         this.games = games;
         this.playerService = playerService;
+        this.generateId = generateId;
     }
 
     public Game getGame(String id) {
-       return games.findGame(id);
+
+        return games.findGame(id);
     }
 
     public List<Game> get() {
@@ -31,7 +33,7 @@ public class GameService {
 
     public void createGame(String challenger, String challenged) {
 
-        Game game = new Game(challenger, challenged, 0, 0);
+        Game game = new Game(generateId.generateId(), challenger, challenged, 0, 0);
         games.saveGame(game);
 
     }
