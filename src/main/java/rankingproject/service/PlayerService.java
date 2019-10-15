@@ -29,7 +29,7 @@ public class PlayerService {
         list.sort(Comparator.comparing(Player::getPosition));
         int lastPosition = list.get( list.size() -1 ).getPosition();
         player.setPosition(lastPosition + 1);
-        repository.getPlayers().add(player);
+        repository.save(player);
 
     }
 
