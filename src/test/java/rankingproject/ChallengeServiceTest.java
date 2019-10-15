@@ -26,11 +26,13 @@ public class ChallengeServiceTest {
 
     private ChallengeRepository challengeRepository = mock(ChallengeRepository.class);
 
+    private GenerateId generateId = mock(GenerateId.class);
+
     private PlayerRepository playerRepository = mock(PlayerRepository.class);
 
     private GameService gameService = mock(GameService.class);
 
-    private ChallengeService challengeService = new ChallengeService(challengeRepository, playerRepository, gameService);
+    private ChallengeService challengeService = new ChallengeService(challengeRepository, playerRepository, gameService, generateId);
 
     private Challenge challenge;
 
