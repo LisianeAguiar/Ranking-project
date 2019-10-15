@@ -34,7 +34,7 @@ public class ChallengeRepository {
                 return challenges.get(i);
             }
         }
-        throw new RuntimeException();
+        return null;
     }
 
     public void save(Challenge challenge) {
