@@ -49,6 +49,7 @@ public class ChallengeController {
             return ok(challenge);
         }
         return badRequest().body("Não é possível desafiar a pessoa.");
+
     }
 
     @PutMapping("/acceptChallenge/{id}/{challengedId}")
