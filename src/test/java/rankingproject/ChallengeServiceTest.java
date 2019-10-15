@@ -134,6 +134,14 @@ public class ChallengeServiceTest {
         verify(challengeRepository).save(any(Challenge.class));
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void createChallenge_shouldPass_ExceptionIfInvalidId() {
+
+        String challengerId = "10T00";
+        String challengedId = "40SS000";
+        challengeService.createChallenge(challengerId,challengedId);
+    }
+
     @Test
     public void acceptChallenge_shouldPass_verifyIfGameIsCreated() {
 
