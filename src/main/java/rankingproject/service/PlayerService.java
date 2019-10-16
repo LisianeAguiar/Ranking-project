@@ -71,7 +71,7 @@ public class PlayerService {
     }
 
     public List<Player> showRanking() {
-        
+
         List<Player> list = repository.getPlayers();
         list.sort(Comparator.comparing(Player::getPosition));
         return list;
