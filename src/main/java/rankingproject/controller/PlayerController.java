@@ -8,8 +8,6 @@ import rankingproject.domain.Player;
 import rankingproject.domain.Ranking;
 import rankingproject.service.PlayerService;
 
-
-import java.beans.BeanProperty;
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
