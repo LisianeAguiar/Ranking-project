@@ -39,8 +39,6 @@ public class PlayerService {
             player.setPosition(lastPosition + 1);
             repository.save(player);
         }
-
-
     }
 
     public void changePositions(String winnerId, String loserId) {
