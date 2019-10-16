@@ -97,10 +97,11 @@ public class ChallengeServiceTest {
     }
 
     @Test
-    public void challengedIsCreated_shouldPass() {
+    public void challengedIsCreated_shouldFail_challengerPositionLessThanChallengedPosition() {
 
-        Player challenger = new Player("Lis", "666", 3);
-        Player challenged = new Player("Gui", "999", 1);
+        Player challenger = new Player("Lis", "666", 2);
+        Player challenged = new Player("Gui", "999", 5);
+
         when(playerRepository.findPlayerById(challenger.getId())).thenReturn(challenger);
         when(playerRepository.findPlayerById(challenged.getId())).thenReturn(challenged);
 
@@ -109,11 +110,10 @@ public class ChallengeServiceTest {
     }
 
     @Test
-    public void challengedIsCreated_shouldFail_challengerPositionLessThanChallengedPosition() {
+    public void challengedIsCreated_shouldPass() {
 
-        Player challenger = new Player("Lis", "666", 2);
-        Player challenged = new Player("Gui", "999", 5);
-
+        Player challenger = new Player("Lis", "666", 3);
+        Player challenged = new Player("Gui", "999", 1);
         when(playerRepository.findPlayerById(challenger.getId())).thenReturn(challenger);
         when(playerRepository.findPlayerById(challenged.getId())).thenReturn(challenged);
 
