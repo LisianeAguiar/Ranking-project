@@ -43,23 +43,6 @@ public class PlayerService {
 
     }
 
-    public void bubbleSort(List<Player> list){
-
-        boolean troca = true;
-        Player aux;
-        while (troca) {
-            troca = false;
-            for (int i = 0; i < list.size() - 1; i++) {
-                if (list.get(i).getPosition() > list.get(i+1).getPosition()) {
-                    aux = list.get(i);
-                    list.set(i, list.get(i +1));
-                    list.set(i + 1, aux);
-                    troca = true;
-                }
-            }
-        }
-    }
-
     public void changePositions(String winnerId, String loserId) {
 
          Player winner = repository.findPlayerById(winnerId);
@@ -88,8 +71,9 @@ public class PlayerService {
     }
 
     public List<Player> showRanking() {
-
-        bubbleSort(repository.getPlayers());
-        return repository.getPlayers();
+        
+        List<Player> list = repository.getPlayers();
+        list.sort(Comparator.comparing(Player::getPosition));
+        return list;
     }
 }
