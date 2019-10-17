@@ -24,14 +24,14 @@ public class ChallengeController {
         this.service = service;
     }
 
-    @GetMapping("/showChallenges")
+    @GetMapping
     public ResponseEntity<List<Challenge>> listChallenges() {
 
         List<Challenge> list = service.get();
         return ok(list);
     }
 
-    @PostMapping("/createChallenge")
+    @PostMapping
     public ResponseEntity createChallenge(@RequestBody ChallengeRequest request) {
 
         String challengerId = request.challenger;
