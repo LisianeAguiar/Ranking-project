@@ -25,14 +25,14 @@ public class PlayerController {
         this.service = service;
     }
 
-    @GetMapping("/showRanking")
+    @GetMapping
     public ResponseEntity<List<Player>> get() {
 
         List<Player> list = service.showRanking();
         return ok(list);
     }
 
-    @PostMapping("/createPlayer")
+    @PostMapping
     public void createPlayer(@RequestBody Player player) {
 
         service.createPlayer(player);
